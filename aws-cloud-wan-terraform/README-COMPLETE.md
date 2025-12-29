@@ -12,6 +12,7 @@ This is a **production-ready** Terraform codebase for AWS Cloud WAN + Transit Ga
 - ✅ `main.tf` - Complete infrastructure orchestration
 - ✅ `outputs.tf` - Comprehensive outputs with validation
 - ✅ `terraform.tfvars.example` - Example configuration
+- ✅ `scp.tf` - AWS Organizations SCPs for PCI compliance (OPTIONAL)
 
 ### Terraform Modules
 - ✅ `modules/vpc/` - Standard VPC module for spoke VPCs
@@ -190,6 +191,134 @@ Set `single_nat_gateway = true` to save ~$32/month
 - **VPC Flow Logs**: Enabled on all VPCs
 - **CloudWatch Logging**: Comprehensive logging for all components
 - **IAM Roles**: Least privilege for all services
+
+## 🛡️ OPTIONAL: PCI Compliance with Service Control Policies
+
+The codebase includes an **optional** `scp.tf` file that implements comprehensive AWS Organizations Service Control Policies (SCPs) for PCI-DSS compliance.
+
+### What's Included in scp.tf
+
+**10 Comprehensive SCPs** that enforce:
+
+1. **✅ Region Restriction** - Only approved regions (us-east-1, us-west-2, eu-west-1)
+2. **✅ Service Disallowance** - Blocks 13+ non-approved services
+3. **✅ Public S3 Prevention** - No public buckets, ACLs, or policies
+4. **✅ Public Networking Block** - No IGW, NAT, EIP, or public subnets
+5. **✅ Encryption Enforcement** - All storage must be encrypted (S3, EBS, RDS, EFS, DynamoDB)
+6. **✅ Mandatory Flow Logs** - VPC Flow Logs cannot be disabled
+7. **✅ Instance Type Allowlist** - Only approved EC2 instance types
+8. **✅ Security Control Protection** - CloudTrail, Config, GuardDuty, Security Hub cannot be disabled
+9. **✅ MFA Requirement** - MFA required for sensitive operations
+10. **✅ Root User Restriction** - Root user blocked from most actions
+
+### PCI Compliance Success Criteria
+
+All PCI requirements met:
+
+| Requirement | Status | SCP |
+|-------------|--------|-----|
+| Disallowed services fail for root | ✅ | #2 |
+| No public S3 buckets | ✅ | #3 |
+| No open SGs to 0.0.0.0/0 | ✅ | #4 |
+| Only approved regions | ✅ | #1 |
+| No public networking (IGW, NAT, EIP) | ✅ | #4 |
+| Mandatory Flow Logs | ✅ | #6 |
+| All storage encrypted | ✅ | #5 |
+| S3 cannot be public | ✅ | #3 |
+| Only approved instance types | ✅ | #7 |
+| SCP violations in CloudTrail | ✅ | All |
+
+### How to Use SCPs (Optional)
+
+The `scp.tf` file is **standalone** and **optional**. To use it:
+
+```bash
+# 1. Review and customize the SCPs
+vim scp.tf
+
+# Edit the locals block to customize:
+# - approved_regions
+# - approved_instance_types  
+# - disallowed_services
+
+# 2. Deploy (creates PCI OU and attaches SCPs)
+terraform apply
+
+# 3. Move accounts to PCI OU
+aws organizations move-account \
+  --account-id YOUR_ACCOUNT_ID \
+  --source-parent-id CURRENT_PARENT \
+  --destination-parent-id $(terraform output -raw pci_ou_id)
+
+# 4. Verify SCP enforcement
+terraform output scp_summary
+```
+
+### What Gets Created (SCPs)
+
+```
+AWS Organization
+└── PCI-Isolated-Workloads OU
+    ├── 10 Service Control Policies
+    └── All policies attached to PCI OU
+```
+
+### SCP Customization
+
+Edit `scp.tf` locals block:
+
+```hcl
+locals {
+  # Customize approved regions
+  approved_regions = [
+    "us-east-1",
+    "us-west-2",
+    "eu-west-1"
+  ]
+
+  # Customize approved instance types
+  approved_instance_types = [
+    "t3.medium",
+    "m5.large",
+    # Add more as needed
+  ]
+
+  # Customize disallowed services
+  disallowed_services = [
+    "lightsail",
+    "gamelift",
+    # Add more as needed
+  ]
+}
+```
+
+### Testing SCP Enforcement
+
+Try these in a PCI OU account (should all fail):
+
+```bash
+# Should FAIL - Unapproved region
+aws ec2 describe-instances --region ap-south-1
+
+# Should FAIL - Public S3 bucket
+aws s3api create-bucket --bucket test --acl public-read
+
+# Should FAIL - Create IGW
+aws ec2 create-internet-gateway
+
+# Should FAIL - Unapproved instance type
+aws ec2 run-instances --instance-type t2.micro --image-id ami-xxx
+```
+
+All violations are logged in CloudTrail automatically.
+
+### Important Notes
+
+- **Optional**: SCPs are not required for the main Cloud WAN architecture
+- **Test First**: Test SCPs in non-production before applying to production
+- **Organization Required**: SCPs require AWS Organizations
+- **Cannot Bypass**: Even root user cannot bypass SCPs
+- **CloudTrail Logging**: All SCP denies are logged automatically
 
 ## 📝 Prerequisites
 
