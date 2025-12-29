@@ -17,9 +17,9 @@ This Terraform codebase deploys a production-ready AWS Cloud WAN + Transit Gatew
 ✅ **main.tf** - Core infrastructure (Cloud WAN, TGW, VPCs, routing)  
 ✅ **outputs.tf** - Comprehensive outputs and validation checks  
 
-### Modules 
+### Modules (Need to be Created)
 
-The following modules are referenced in main.tf 
+The following modules are referenced in main.tf and need to be created:
 
 #### 1. `modules/vpc/` - Standard VPC Module
 Creates spoke VPCs (Production, Non-Production, Shared Services) with:
@@ -435,10 +435,307 @@ For issues or questions:
 - Review Terraform AWS provider docs
 - Open an issue in the repository
 
+## OPTIONAL: PCI Compliance with Service Control Policies
+
+The codebase includes an **optional** `scp.tf` file for PCI-DSS compliance using AWS Organizations Service Control Policies.
+
+### What Are SCPs?
+
+Service Control Policies (SCPs) are organization-level policies that enforce compliance requirements across all accounts in an Organizational Unit (OU). They cannot be bypassed, even by the root user.
+
+### What's Included
+
+The `scp.tf` file implements **10 comprehensive SCPs**:
+
+1. **Region Restriction** - Only allows approved regions (us-east-1, us-west-2, eu-west-1)
+2. **Service Disallowance** - Blocks 13+ non-approved services
+3. **Public S3 Prevention** - No public buckets, ACLs, or policies allowed
+4. **Public Networking Block** - Prevents IGW, NAT, EIP, public subnets
+5. **Encryption Enforcement** - All storage must be encrypted (S3, EBS, RDS, EFS, DynamoDB)
+6. **Mandatory Flow Logs** - VPC Flow Logs cannot be disabled
+7. **Instance Type Allowlist** - Only approved EC2 instance types
+8. **Security Control Protection** - CloudTrail, Config, GuardDuty cannot be disabled
+9. **MFA Requirement** - MFA required for sensitive operations
+10. **Root User Restriction** - Root user blocked from most actions
+
+### Deploying SCPs (Optional)
+
+#### Step 1: Review and Customize
+
+```bash
+# Edit the SCP configuration
+vim scp.tf
+
+# Customize the locals block:
+locals {
+  # Add/remove approved regions
+  approved_regions = [
+    "us-east-1",
+    "us-west-2",
+    "eu-west-1"
+  ]
+
+  # Add/remove approved instance types
+  approved_instance_types = [
+    "t3.medium",
+    "t3.large",
+    "m5.large",
+    # Add more as needed
+  ]
+
+  # Add/remove disallowed services
+  disallowed_services = [
+    "lightsail",
+    "gamelift",
+    # Add more as needed
+  ]
+}
+```
+
+#### Step 2: Deploy SCPs
+
+```bash
+# Initialize (if not already done)
+terraform init
+
+# Plan to see what will be created
+terraform plan
+
+# Apply to create PCI OU and SCPs
+terraform apply
+```
+
+This creates:
+- 1 PCI Organizational Unit
+- 10 Service Control Policies
+- 10 Policy attachments to the PCI OU
+
+#### Step 3: Move Accounts to PCI OU
+
+```bash
+# Get the PCI OU ID
+PCI_OU_ID=$(terraform output -raw pci_ou_id)
+
+# Move account to PCI OU
+aws organizations move-account \
+  --account-id YOUR_ACCOUNT_ID \
+  --source-parent-id CURRENT_PARENT_ID \
+  --destination-parent-id $PCI_OU_ID
+```
+
+#### Step 4: Verify SCP Enforcement
+
+```bash
+# View SCP summary
+terraform output scp_summary
+
+# View all SCP policy IDs
+terraform output scp_policies
+
+# View approved regions
+terraform output approved_regions
+
+# View approved instance types
+terraform output approved_instance_types
+```
+
+### Testing SCP Enforcement
+
+Try these commands in a PCI OU account (they should all fail):
+
+```bash
+# Test 1: Unapproved region (should FAIL)
+aws ec2 describe-instances --region ap-south-1
+# Expected: Access Denied
+
+# Test 2: Public S3 bucket (should FAIL)
+aws s3api create-bucket --bucket test-public --acl public-read
+# Expected: Access Denied
+
+# Test 3: Create Internet Gateway (should FAIL)
+aws ec2 create-internet-gateway
+# Expected: Access Denied
+
+# Test 4: Unapproved instance type (should FAIL)
+aws ec2 run-instances \
+  --instance-type t2.micro \
+  --image-id ami-0c55b159cbfafe1f0
+# Expected: Access Denied
+
+# Test 5: Unencrypted EBS volume (should FAIL)
+aws ec2 create-volume \
+  --size 10 \
+  --availability-zone us-east-1a
+# Expected: Access Denied (no encryption specified)
+
+# Test 6: Delete VPC Flow Logs (should FAIL)
+aws ec2 delete-flow-logs --flow-log-ids fl-xxxxxxxxx
+# Expected: Access Denied
+```
+
+### Viewing SCP Violations in CloudTrail
+
+All SCP denies are automatically logged in CloudTrail:
+
+```bash
+# Search for SCP denies in CloudTrail
+aws cloudtrail lookup-events \
+  --lookup-attributes AttributeKey=EventName,AttributeValue=Deny \
+  --max-results 50 \
+  --query 'Events[?contains(CloudTrailEvent, `AccessDenied`)].{Time:EventTime,User:Username,Event:EventName}' \
+  --output table
+
+# Or use CloudWatch Insights
+# Navigate to CloudWatch > Insights
+# Select your CloudTrail log group
+# Run query:
+fields @timestamp, userIdentity.principalId, eventName, errorCode, errorMessage
+| filter errorCode = "AccessDenied"
+| sort @timestamp desc
+| limit 100
+```
+
+### PCI Compliance Validation
+
+Verify all PCI requirements are enforced:
+
+| Requirement | Test Command | Expected Result |
+|-------------|--------------|-----------------|
+| Disallowed services | `aws lightsail get-instances` | Access Denied |
+| No public S3 | `aws s3api create-bucket --acl public-read` | Access Denied |
+| No open SGs | `aws ec2 authorize-security-group-ingress --cidr 0.0.0.0/0` | Access Denied |
+| Only approved regions | `aws ec2 describe-instances --region ap-south-1` | Access Denied |
+| No public networking | `aws ec2 create-internet-gateway` | Access Denied |
+| Mandatory Flow Logs | `aws ec2 delete-flow-logs --flow-log-ids fl-xxx` | Access Denied |
+| All storage encrypted | `aws ec2 create-volume --size 10` (no encryption) | Access Denied |
+| No public S3 | `aws s3api put-bucket-acl --acl public-read` | Access Denied |
+| Only approved instances | `aws ec2 run-instances --instance-type t2.micro` | Access Denied |
+
+### SCP Best Practices
+
+1. **Test in Non-Production First**
+   ```bash
+   # Create a test OU first
+   aws organizations create-organizational-unit \
+     --parent-id ROOT_ID \
+     --name "PCI-Test"
+   
+   # Move a test account
+   # Verify all SCPs work as expected
+   # Then apply to production PCI OU
+   ```
+
+2. **Document Exceptions**
+   - If you need to allow specific actions, document why
+   - Use condition keys in SCPs for exceptions
+   - Example: Allow specific IAM roles to bypass certain restrictions
+
+3. **Monitor SCP Violations**
+   - Set up CloudWatch alarms for SCP denies
+   - Review violations weekly
+   - Investigate unexpected denies
+
+4. **Regular Reviews**
+   - Quarterly review of approved regions
+   - Monthly review of approved instance types
+   - Annual review of disallowed services
+
+### Troubleshooting SCPs
+
+#### Issue: Legitimate Action Blocked
+
+**Solution:**
+```bash
+# 1. Check CloudTrail for the deny event
+aws cloudtrail lookup-events \
+  --lookup-attributes AttributeKey=EventName,AttributeValue=YOUR_ACTION
+
+# 2. Identify which SCP is blocking
+# Review the SCP policies
+terraform output scp_policies
+
+# 3. Update the SCP if needed
+vim scp.tf
+# Modify the relevant SCP condition
+
+# 4. Apply changes
+terraform apply
+```
+
+#### Issue: SCP Not Enforcing
+
+**Solution:**
+```bash
+# 1. Verify account is in PCI OU
+aws organizations list-parents --child-id ACCOUNT_ID
+
+# 2. Verify SCP is attached to OU
+aws organizations list-policies-for-target \
+  --target-id $(terraform output -raw pci_ou_id) \
+  --filter SERVICE_CONTROL_POLICY
+
+# 3. Check SCP policy content
+aws organizations describe-policy \
+  --policy-id POLICY_ID
+```
+
+#### Issue: Need to Temporarily Bypass SCP
+
+**Solution:**
+```bash
+# SCPs cannot be bypassed, but you can:
+
+# Option 1: Move account out of PCI OU temporarily
+aws organizations move-account \
+  --account-id ACCOUNT_ID \
+  --source-parent-id PCI_OU_ID \
+  --destination-parent-id ROOT_ID
+
+# Perform necessary action
+
+# Move back to PCI OU
+aws organizations move-account \
+  --account-id ACCOUNT_ID \
+  --source-parent-id ROOT_ID \
+  --destination-parent-id PCI_OU_ID
+
+# Option 2: Modify SCP temporarily (not recommended)
+# Better to use Option 1
+```
+
+### Drift Detection and Auto-Remediation
+
+Enable AWS Config for drift detection:
+
+```bash
+# Enable AWS Config
+aws configservice put-configuration-recorder \
+  --configuration-recorder name=default,roleARN=arn:aws:iam::ACCOUNT:role/ConfigRole \
+  --recording-group allSupported=true,includeGlobalResourceTypes=true
+
+# Enable Config Rules for PCI compliance
+aws configservice put-config-rule \
+  --config-rule file://pci-config-rules.json
+
+# Enable Security Hub for compliance monitoring
+aws securityhub enable-security-hub \
+  --enable-default-standards
+```
+
+### Important Notes
+
+- **Optional**: SCPs are not required for the main Cloud WAN architecture
+- **Test First**: Always test in non-production before applying to production
+- **Cannot Bypass**: Even root user cannot bypass SCPs
+- **CloudTrail Required**: Ensure CloudTrail is enabled to log SCP violations
+- **Organization Required**: SCPs require AWS Organizations to be set up
+- **Gradual Rollout**: Consider rolling out SCPs gradually, one at a time
+
 ## References
 
 - [AWS Cloud WAN Documentation](https://docs.aws.amazon.com/vpc/latest/cloudwan/)
 - [AWS Transit Gateway Documentation](https://docs.aws.amazon.com/vpc/latest/tgw/)
 - [AWS Network Firewall Documentation](https://docs.aws.amazon.com/network-firewall/)
 - [Gateway Load Balancer Documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/gateway/)
+- [AWS Organizations SCPs Documentation](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)
 - [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
