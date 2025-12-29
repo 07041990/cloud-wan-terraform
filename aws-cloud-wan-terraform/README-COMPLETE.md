@@ -119,6 +119,7 @@ aws-cloud-wan-terraform/
 ├── README-COMPLETE.md               # ✅ This file
 ├── architecture-diagram.html        # ✅ Visual diagram
 ├── aws-architecture-diagram.html    # ✅ AWS-style diagram
+├── scp.tf                           # ✅ SCPs for PCI-Isolated Workloads
 └── modules/
     ├── vpc/                         # ✅ Spoke VPC module
     │   ├── main.tf                  # ✅ VPC resources
