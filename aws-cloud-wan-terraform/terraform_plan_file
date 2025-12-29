@@ -1,0 +1,2556 @@
+[0m[1mdata.aws_region.current: Reading...[0m[0m
+[0m[1mdata.aws_caller_identity.current: Reading...[0m[0m
+[0m[1mdata.aws_region.current: Read complete after 0s [id=us-east-1][0m
+[0m[1mdata.aws_caller_identity.current: Read complete after 1s [id=119810927698][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform planned the following actions, but then encountered a problem:
+
+[1m  # aws_ec2_transit_gateway.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_ec2_transit_gateway" "main" {
+      [32m+[0m[0m amazon_side_asn                    = 64512
+      [32m+[0m[0m arn                                = (known after apply)
+      [32m+[0m[0m association_default_route_table_id = (known after apply)
+      [32m+[0m[0m auto_accept_shared_attachments     = "disable"
+      [32m+[0m[0m default_route_table_association    = "disable"
+      [32m+[0m[0m default_route_table_propagation    = "disable"
+      [32m+[0m[0m description                        = "Transit Gateway for multi-account connectivity"
+      [32m+[0m[0m dns_support                        = "enable"
+      [32m+[0m[0m encryption_support                 = (known after apply)
+      [32m+[0m[0m id                                 = (known after apply)
+      [32m+[0m[0m multicast_support                  = "disable"
+      [32m+[0m[0m owner_id                           = (known after apply)
+      [32m+[0m[0m propagation_default_route_table_id = (known after apply)
+      [32m+[0m[0m region                             = "us-east-1"
+      [32m+[0m[0m security_group_referencing_support = "disable"
+      [32m+[0m[0m tags                               = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpn_ecmp_support                   = "enable"
+    }
+
+[1m  # aws_ec2_transit_gateway_route.non_production_to_egress[0m will be created
+[0m  [32m+[0m[0m resource "aws_ec2_transit_gateway_route" "non_production_to_egress" {
+      [32m+[0m[0m blackhole                      = false
+      [32m+[0m[0m destination_cidr_block         = "0.0.0.0/0"
+      [32m+[0m[0m id                             = (known after apply)
+      [32m+[0m[0m region                         = "us-east-1"
+      [32m+[0m[0m transit_gateway_attachment_id  = (known after apply)
+      [32m+[0m[0m transit_gateway_route_table_id = (known after apply)
+    }
+
+[1m  # aws_ec2_transit_gateway_route.production_to_egress[0m will be created
+[0m  [32m+[0m[0m resource "aws_ec2_transit_gateway_route" "production_to_egress" {
+      [32m+[0m[0m blackhole                      = false
+      [32m+[0m[0m destination_cidr_block         = "0.0.0.0/0"
+      [32m+[0m[0m id                             = (known after apply)
+      [32m+[0m[0m region                         = "us-east-1"
+      [32m+[0m[0m transit_gateway_attachment_id  = (known after apply)
+      [32m+[0m[0m transit_gateway_route_table_id = (known after apply)
+    }
+
+[1m  # aws_ec2_transit_gateway_route.shared_to_egress[0m will be created
+[0m  [32m+[0m[0m resource "aws_ec2_transit_gateway_route" "shared_to_egress" {
+      [32m+[0m[0m blackhole                      = false
+      [32m+[0m[0m destination_cidr_block         = "0.0.0.0/0"
+      [32m+[0m[0m id                             = (known after apply)
+      [32m+[0m[0m region                         = "us-east-1"
+      [32m+[0m[0m transit_gateway_attachment_id  = (known after apply)
+      [32m+[0m[0m transit_gateway_route_table_id = (known after apply)
+    }
+
+[1m  # aws_ec2_transit_gateway_route_table.egress[0m will be created
+[0m  [32m+[0m[0m resource "aws_ec2_transit_gateway_route_table" "egress" {
+      [32m+[0m[0m arn                             = (known after apply)
+      [32m+[0m[0m default_association_route_table = (known after apply)
+      [32m+[0m[0m default_propagation_route_table = (known after apply)
+      [32m+[0m[0m id                              = (known after apply)
+      [32m+[0m[0m region                          = "us-east-1"
+      [32m+[0m[0m tags                            = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-rt-egress"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Segment"     = "egress"
+        }
+      [32m+[0m[0m tags_all                        = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-rt-egress"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Segment"     = "egress"
+        }
+      [32m+[0m[0m transit_gateway_id              = (known after apply)
+    }
+
+[1m  # aws_ec2_transit_gateway_route_table.non_production[0m will be created
+[0m  [32m+[0m[0m resource "aws_ec2_transit_gateway_route_table" "non_production" {
+      [32m+[0m[0m arn                             = (known after apply)
+      [32m+[0m[0m default_association_route_table = (known after apply)
+      [32m+[0m[0m default_propagation_route_table = (known after apply)
+      [32m+[0m[0m id                              = (known after apply)
+      [32m+[0m[0m region                          = "us-east-1"
+      [32m+[0m[0m tags                            = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-rt-non-production"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Segment"     = "non-production"
+        }
+      [32m+[0m[0m tags_all                        = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-rt-non-production"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Segment"     = "non-production"
+        }
+      [32m+[0m[0m transit_gateway_id              = (known after apply)
+    }
+
+[1m  # aws_ec2_transit_gateway_route_table.production[0m will be created
+[0m  [32m+[0m[0m resource "aws_ec2_transit_gateway_route_table" "production" {
+      [32m+[0m[0m arn                             = (known after apply)
+      [32m+[0m[0m default_association_route_table = (known after apply)
+      [32m+[0m[0m default_propagation_route_table = (known after apply)
+      [32m+[0m[0m id                              = (known after apply)
+      [32m+[0m[0m region                          = "us-east-1"
+      [32m+[0m[0m tags                            = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-rt-production"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Segment"     = "production"
+        }
+      [32m+[0m[0m tags_all                        = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-rt-production"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Segment"     = "production"
+        }
+      [32m+[0m[0m transit_gateway_id              = (known after apply)
+    }
+
+[1m  # aws_ec2_transit_gateway_route_table.shared[0m will be created
+[0m  [32m+[0m[0m resource "aws_ec2_transit_gateway_route_table" "shared" {
+      [32m+[0m[0m arn                             = (known after apply)
+      [32m+[0m[0m default_association_route_table = (known after apply)
+      [32m+[0m[0m default_propagation_route_table = (known after apply)
+      [32m+[0m[0m id                              = (known after apply)
+      [32m+[0m[0m region                          = "us-east-1"
+      [32m+[0m[0m tags                            = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-rt-shared"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Segment"     = "shared"
+        }
+      [32m+[0m[0m tags_all                        = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-rt-shared"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Segment"     = "shared"
+        }
+      [32m+[0m[0m transit_gateway_id              = (known after apply)
+    }
+
+[1m  # aws_ec2_transit_gateway_route_table_association.egress[0m will be created
+[0m  [32m+[0m[0m resource "aws_ec2_transit_gateway_route_table_association" "egress" {
+      [32m+[0m[0m id                             = (known after apply)
+      [32m+[0m[0m region                         = "us-east-1"
+      [32m+[0m[0m replace_existing_association   = false
+      [32m+[0m[0m resource_id                    = (known after apply)
+      [32m+[0m[0m resource_type                  = (known after apply)
+      [32m+[0m[0m transit_gateway_attachment_id  = (known after apply)
+      [32m+[0m[0m transit_gateway_route_table_id = (known after apply)
+    }
+
+[1m  # aws_ec2_transit_gateway_vpc_attachment.egress[0m will be created
+[0m  [32m+[0m[0m resource "aws_ec2_transit_gateway_vpc_attachment" "egress" {
+      [32m+[0m[0m appliance_mode_support                          = "disable"
+      [32m+[0m[0m arn                                             = (known after apply)
+      [32m+[0m[0m dns_support                                     = "enable"
+      [32m+[0m[0m id                                              = (known after apply)
+      [32m+[0m[0m ipv6_support                                    = "disable"
+      [32m+[0m[0m region                                          = "us-east-1"
+      [32m+[0m[0m security_group_referencing_support              = (known after apply)
+      [32m+[0m[0m subnet_ids                                      = (known after apply)
+      [32m+[0m[0m tags                                            = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-attach-egress"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Segment"     = "egress"
+        }
+      [32m+[0m[0m tags_all                                        = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-attach-egress"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Segment"     = "egress"
+        }
+      [32m+[0m[0m transit_gateway_default_route_table_association = false
+      [32m+[0m[0m transit_gateway_default_route_table_propagation = false
+      [32m+[0m[0m transit_gateway_id                              = (known after apply)
+      [32m+[0m[0m vpc_id                                          = (known after apply)
+      [32m+[0m[0m vpc_owner_id                                    = (known after apply)
+    }
+
+[1m  # aws_networkmanager_core_network.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_networkmanager_core_network" "main" {
+      [32m+[0m[0m arn                = (known after apply)
+      [32m+[0m[0m create_base_policy = false
+      [32m+[0m[0m created_at         = (known after apply)
+      [32m+[0m[0m description        = "Core network for multi-account segmentation"
+      [32m+[0m[0m edges              = (known after apply)
+      [32m+[0m[0m global_network_id  = (known after apply)
+      [32m+[0m[0m id                 = (known after apply)
+      [32m+[0m[0m segments           = (known after apply)
+      [32m+[0m[0m state              = (known after apply)
+      [32m+[0m[0m tags               = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-core-network"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-core-network"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # aws_networkmanager_core_network_policy_attachment.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_networkmanager_core_network_policy_attachment" "main" {
+      [32m+[0m[0m core_network_id = (known after apply)
+      [32m+[0m[0m id              = (known after apply)
+      [32m+[0m[0m policy_document = jsonencode(
+            {
+              [32m+[0m[0m attachment-policies        = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action          = {
+                          [32m+[0m[0m association-method = "constant"
+                          [32m+[0m[0m segment            = "production"
+                        }
+                      [32m+[0m[0m condition-logic = "or"
+                      [32m+[0m[0m conditions      = [
+                          [32m+[0m[0m {
+                              [32m+[0m[0m key      = "Segment"
+                              [32m+[0m[0m operator = "equals"
+                              [32m+[0m[0m type     = "tag-value"
+                              [32m+[0m[0m value    = "production"
+                            },
+                        ]
+                      [32m+[0m[0m rule-number     = 100
+                    },
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action          = {
+                          [32m+[0m[0m association-method = "constant"
+                          [32m+[0m[0m segment            = "non-production"
+                        }
+                      [32m+[0m[0m condition-logic = "or"
+                      [32m+[0m[0m conditions      = [
+                          [32m+[0m[0m {
+                              [32m+[0m[0m key      = "Segment"
+                              [32m+[0m[0m operator = "equals"
+                              [32m+[0m[0m type     = "tag-value"
+                              [32m+[0m[0m value    = "non-production"
+                            },
+                        ]
+                      [32m+[0m[0m rule-number     = 200
+                    },
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action          = {
+                          [32m+[0m[0m association-method = "constant"
+                          [32m+[0m[0m segment            = "shared"
+                        }
+                      [32m+[0m[0m condition-logic = "or"
+                      [32m+[0m[0m conditions      = [
+                          [32m+[0m[0m {
+                              [32m+[0m[0m key      = "Segment"
+                              [32m+[0m[0m operator = "equals"
+                              [32m+[0m[0m type     = "tag-value"
+                              [32m+[0m[0m value    = "shared"
+                            },
+                        ]
+                      [32m+[0m[0m rule-number     = 300
+                    },
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action          = {
+                          [32m+[0m[0m association-method = "constant"
+                          [32m+[0m[0m segment            = "inspection"
+                        }
+                      [32m+[0m[0m condition-logic = "or"
+                      [32m+[0m[0m conditions      = [
+                          [32m+[0m[0m {
+                              [32m+[0m[0m key      = "Segment"
+                              [32m+[0m[0m operator = "equals"
+                              [32m+[0m[0m type     = "tag-value"
+                              [32m+[0m[0m value    = "inspection"
+                            },
+                        ]
+                      [32m+[0m[0m rule-number     = 400
+                    },
+                ]
+              [32m+[0m[0m core-network-configuration = {
+                  [32m+[0m[0m asn-ranges       = [
+                      [32m+[0m[0m "64512-65534",
+                    ]
+                  [32m+[0m[0m edge-locations   = [
+                      [32m+[0m[0m {
+                          [32m+[0m[0m asn      = 64512
+                          [32m+[0m[0m location = "us-east-1"
+                        },
+                    ]
+                  [32m+[0m[0m vpn-ecmp-support = true
+                }
+              [32m+[0m[0m segment-actions            = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action     = "share"
+                      [32m+[0m[0m mode       = "attachment-route"
+                      [32m+[0m[0m segment    = "shared"
+                      [32m+[0m[0m share-with = [
+                          [32m+[0m[0m "production",
+                          [32m+[0m[0m "non-production",
+                        ]
+                    },
+                ]
+              [32m+[0m[0m segments                   = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m description                   = "Production segment - isolated from non-prod"
+                      [32m+[0m[0m isolate-attachments           = true
+                      [32m+[0m[0m name                          = "production"
+                      [32m+[0m[0m require-attachment-acceptance = false
+                    },
+                  [32m+[0m[0m {
+                      [32m+[0m[0m description                   = "Non-production segment - isolated from prod"
+                      [32m+[0m[0m isolate-attachments           = true
+                      [32m+[0m[0m name                          = "non-production"
+                      [32m+[0m[0m require-attachment-acceptance = false
+                    },
+                  [32m+[0m[0m {
+                      [32m+[0m[0m description                   = "Shared services segment - accessible to all"
+                      [32m+[0m[0m isolate-attachments           = false
+                      [32m+[0m[0m name                          = "shared"
+                      [32m+[0m[0m require-attachment-acceptance = false
+                    },
+                  [32m+[0m[0m {
+                      [32m+[0m[0m description                   = "Inspection segment - centralized monitoring"
+                      [32m+[0m[0m isolate-attachments           = false
+                      [32m+[0m[0m name                          = "inspection"
+                      [32m+[0m[0m require-attachment-acceptance = false
+                    },
+                ]
+              [32m+[0m[0m version                    = "2021.12"
+            }
+        )
+      [32m+[0m[0m state           = (known after apply)
+    }
+
+[1m  # aws_networkmanager_global_network.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_networkmanager_global_network" "main" {
+      [32m+[0m[0m arn         = (known after apply)
+      [32m+[0m[0m description = "Multi-account segmentation with centralized egress"
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m tags        = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-global-network"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all    = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-global-network"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # aws_ram_principal_association.non_production[0m will be created
+[0m  [32m+[0m[0m resource "aws_ram_principal_association" "non_production" {
+      [32m+[0m[0m id                 = (known after apply)
+      [32m+[0m[0m principal          = "333333333333"
+      [32m+[0m[0m region             = "us-east-1"
+      [32m+[0m[0m resource_share_arn = (known after apply)
+    }
+
+[1m  # aws_ram_principal_association.production[0m will be created
+[0m  [32m+[0m[0m resource "aws_ram_principal_association" "production" {
+      [32m+[0m[0m id                 = (known after apply)
+      [32m+[0m[0m principal          = "222222222222"
+      [32m+[0m[0m region             = "us-east-1"
+      [32m+[0m[0m resource_share_arn = (known after apply)
+    }
+
+[1m  # aws_ram_principal_association.shared_services[0m will be created
+[0m  [32m+[0m[0m resource "aws_ram_principal_association" "shared_services" {
+      [32m+[0m[0m id                 = (known after apply)
+      [32m+[0m[0m principal          = "444444444444"
+      [32m+[0m[0m region             = "us-east-1"
+      [32m+[0m[0m resource_share_arn = (known after apply)
+    }
+
+[1m  # aws_ram_resource_association.tgw[0m will be created
+[0m  [32m+[0m[0m resource "aws_ram_resource_association" "tgw" {
+      [32m+[0m[0m id                 = (known after apply)
+      [32m+[0m[0m region             = "us-east-1"
+      [32m+[0m[0m resource_arn       = (known after apply)
+      [32m+[0m[0m resource_share_arn = (known after apply)
+    }
+
+[1m  # aws_ram_resource_share.tgw[0m will be created
+[0m  [32m+[0m[0m resource "aws_ram_resource_share" "tgw" {
+      [32m+[0m[0m allow_external_principals = false
+      [32m+[0m[0m arn                       = (known after apply)
+      [32m+[0m[0m id                        = (known after apply)
+      [32m+[0m[0m name                      = "cwan-tgw-share"
+      [32m+[0m[0m permission_arns           = (known after apply)
+      [32m+[0m[0m region                    = "us-east-1"
+      [32m+[0m[0m tags                      = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-share"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                  = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-tgw-share"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # module.egress_vpc.aws_cloudwatch_log_group.firewall_alert[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_cloudwatch_log_group" "firewall_alert" {
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m deletion_protection_enabled = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m log_group_class             = (known after apply)
+      [32m+[0m[0m name                        = "/aws/networkfirewall/egress-firewall-alert"
+      [32m+[0m[0m name_prefix                 = (known after apply)
+      [32m+[0m[0m region                      = "us-east-1"
+      [32m+[0m[0m retention_in_days           = 90
+      [32m+[0m[0m skip_destroy                = false
+      [32m+[0m[0m tags                        = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-alert-logs"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                    = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-alert-logs"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # module.egress_vpc.aws_cloudwatch_log_group.firewall_flow[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_cloudwatch_log_group" "firewall_flow" {
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m deletion_protection_enabled = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m log_group_class             = (known after apply)
+      [32m+[0m[0m name                        = "/aws/networkfirewall/egress-firewall-flow"
+      [32m+[0m[0m name_prefix                 = (known after apply)
+      [32m+[0m[0m region                      = "us-east-1"
+      [32m+[0m[0m retention_in_days           = 90
+      [32m+[0m[0m skip_destroy                = false
+      [32m+[0m[0m tags                        = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-flow-logs"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                    = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-flow-logs"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # module.egress_vpc.aws_cloudwatch_log_group.flow_logs[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_cloudwatch_log_group" "flow_logs" {
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m deletion_protection_enabled = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m log_group_class             = (known after apply)
+      [32m+[0m[0m name                        = "/aws/vpc/flow-logs/cwan-egress-vpc"
+      [32m+[0m[0m name_prefix                 = (known after apply)
+      [32m+[0m[0m region                      = "us-east-1"
+      [32m+[0m[0m retention_in_days           = 30
+      [32m+[0m[0m skip_destroy                = false
+      [32m+[0m[0m tags                        = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-flow-logs"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                    = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-flow-logs"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # module.egress_vpc.aws_eip.nat[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_eip" "nat" {
+      [32m+[0m[0m allocation_id        = (known after apply)
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m association_id       = (known after apply)
+      [32m+[0m[0m carrier_ip           = (known after apply)
+      [32m+[0m[0m customer_owned_ip    = (known after apply)
+      [32m+[0m[0m domain               = "vpc"
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m instance             = (known after apply)
+      [32m+[0m[0m ipam_pool_id         = (known after apply)
+      [32m+[0m[0m network_border_group = (known after apply)
+      [32m+[0m[0m network_interface    = (known after apply)
+      [32m+[0m[0m private_dns          = (known after apply)
+      [32m+[0m[0m private_ip           = (known after apply)
+      [32m+[0m[0m ptr_record           = (known after apply)
+      [32m+[0m[0m public_dns           = (known after apply)
+      [32m+[0m[0m public_ip            = (known after apply)
+      [32m+[0m[0m public_ipv4_pool     = (known after apply)
+      [32m+[0m[0m region               = "us-east-1"
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-nat-eip-1"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-nat-eip-1"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # module.egress_vpc.aws_eip.nat[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_eip" "nat" {
+      [32m+[0m[0m allocation_id        = (known after apply)
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m association_id       = (known after apply)
+      [32m+[0m[0m carrier_ip           = (known after apply)
+      [32m+[0m[0m customer_owned_ip    = (known after apply)
+      [32m+[0m[0m domain               = "vpc"
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m instance             = (known after apply)
+      [32m+[0m[0m ipam_pool_id         = (known after apply)
+      [32m+[0m[0m network_border_group = (known after apply)
+      [32m+[0m[0m network_interface    = (known after apply)
+      [32m+[0m[0m private_dns          = (known after apply)
+      [32m+[0m[0m private_ip           = (known after apply)
+      [32m+[0m[0m ptr_record           = (known after apply)
+      [32m+[0m[0m public_dns           = (known after apply)
+      [32m+[0m[0m public_ip            = (known after apply)
+      [32m+[0m[0m public_ipv4_pool     = (known after apply)
+      [32m+[0m[0m region               = "us-east-1"
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-nat-eip-2"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-nat-eip-2"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # module.egress_vpc.aws_flow_log.main[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_flow_log" "main" {
+      [32m+[0m[0m arn                      = (known after apply)
+      [32m+[0m[0m iam_role_arn             = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m log_destination          = (known after apply)
+      [32m+[0m[0m log_destination_type     = "cloud-watch-logs"
+      [32m+[0m[0m log_format               = (known after apply)
+      [32m+[0m[0m max_aggregation_interval = 600
+      [32m+[0m[0m region                   = "us-east-1"
+      [32m+[0m[0m tags                     = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-flow-log"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                 = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-flow-log"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m traffic_type             = "ALL"
+      [32m+[0m[0m vpc_id                   = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_iam_role.flow_logs[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role" "flow_logs" {
+      [32m+[0m[0m arn                   = (known after apply)
+      [32m+[0m[0m assume_role_policy    = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action    = "sts:AssumeRole"
+                      [32m+[0m[0m Effect    = "Allow"
+                      [32m+[0m[0m Principal = {
+                          [32m+[0m[0m Service = "vpc-flow-logs.amazonaws.com"
+                        }
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m create_date           = (known after apply)
+      [32m+[0m[0m force_detach_policies = false
+      [32m+[0m[0m id                    = (known after apply)
+      [32m+[0m[0m managed_policy_arns   = (known after apply)
+      [32m+[0m[0m max_session_duration  = 3600
+      [32m+[0m[0m name                  = "cwan-egress-vpc-flow-logs-role"
+      [32m+[0m[0m name_prefix           = (known after apply)
+      [32m+[0m[0m path                  = "/"
+      [32m+[0m[0m tags                  = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all              = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m unique_id             = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_iam_role_policy.flow_logs[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role_policy" "flow_logs" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m name        = "cwan-egress-vpc-flow-logs-policy"
+      [32m+[0m[0m name_prefix = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action   = [
+                          [32m+[0m[0m "logs:CreateLogGroup",
+                          [32m+[0m[0m "logs:CreateLogStream",
+                          [32m+[0m[0m "logs:PutLogEvents",
+                          [32m+[0m[0m "logs:DescribeLogGroups",
+                          [32m+[0m[0m "logs:DescribeLogStreams",
+                        ]
+                      [32m+[0m[0m Effect   = "Allow"
+                      [32m+[0m[0m Resource = "*"
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m role        = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_internet_gateway.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_internet_gateway" "main" {
+      [32m+[0m[0m arn      = (known after apply)
+      [32m+[0m[0m id       = (known after apply)
+      [32m+[0m[0m owner_id = (known after apply)
+      [32m+[0m[0m region   = "us-east-1"
+      [32m+[0m[0m tags     = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-igw"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-igw"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id   = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_lb.gwlb[0m will be created
+[0m  [32m+[0m[0m resource "aws_lb" "gwlb" {
+      [32m+[0m[0m arn                                                          = (known after apply)
+      [32m+[0m[0m arn_suffix                                                   = (known after apply)
+      [32m+[0m[0m dns_name                                                     = (known after apply)
+      [32m+[0m[0m enable_cross_zone_load_balancing                             = true
+      [32m+[0m[0m enable_deletion_protection                                   = false
+      [32m+[0m[0m enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      [32m+[0m[0m id                                                           = (known after apply)
+      [32m+[0m[0m internal                                                     = (known after apply)
+      [32m+[0m[0m ip_address_type                                              = (known after apply)
+      [32m+[0m[0m load_balancer_type                                           = "gateway"
+      [32m+[0m[0m name                                                         = "egress-gwlb"
+      [32m+[0m[0m name_prefix                                                  = (known after apply)
+      [32m+[0m[0m region                                                       = "us-east-1"
+      [32m+[0m[0m secondary_ips_auto_assigned_per_subnet                       = (known after apply)
+      [32m+[0m[0m security_groups                                              = (known after apply)
+      [32m+[0m[0m subnets                                                      = (known after apply)
+      [32m+[0m[0m tags                                                         = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-gwlb"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                                                     = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-gwlb"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id                                                       = (known after apply)
+      [32m+[0m[0m zone_id                                                      = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_lb_listener.gwlb[0m will be created
+[0m  [32m+[0m[0m resource "aws_lb_listener" "gwlb" {
+      [32m+[0m[0m arn                                                                   = (known after apply)
+      [32m+[0m[0m id                                                                    = (known after apply)
+      [32m+[0m[0m load_balancer_arn                                                     = (known after apply)
+      [32m+[0m[0m protocol                                                              = (known after apply)
+      [32m+[0m[0m region                                                                = "us-east-1"
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_max_age_header_value             = (known after apply)
+      [32m+[0m[0m routing_http_response_content_security_policy_header_value            = (known after apply)
+      [32m+[0m[0m routing_http_response_server_enabled                                  = (known after apply)
+      [32m+[0m[0m routing_http_response_strict_transport_security_header_value          = (known after apply)
+      [32m+[0m[0m routing_http_response_x_content_type_options_header_value             = (known after apply)
+      [32m+[0m[0m routing_http_response_x_frame_options_header_value                    = (known after apply)
+      [32m+[0m[0m ssl_policy                                                            = (known after apply)
+      [32m+[0m[0m tags_all                                                              = {
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m tcp_idle_timeout_seconds                                              = (known after apply)
+
+      [32m+[0m[0m default_action {
+          [32m+[0m[0m order            = (known after apply)
+          [32m+[0m[0m target_group_arn = (known after apply)
+          [32m+[0m[0m type             = "forward"
+        }
+    }
+
+[1m  # module.egress_vpc.aws_lb_target_group.gwlb[0m will be created
+[0m  [32m+[0m[0m resource "aws_lb_target_group" "gwlb" {
+      [32m+[0m[0m arn                                = (known after apply)
+      [32m+[0m[0m arn_suffix                         = (known after apply)
+      [32m+[0m[0m connection_termination             = (known after apply)
+      [32m+[0m[0m deregistration_delay               = "300"
+      [32m+[0m[0m id                                 = (known after apply)
+      [32m+[0m[0m ip_address_type                    = (known after apply)
+      [32m+[0m[0m lambda_multi_value_headers_enabled = false
+      [32m+[0m[0m load_balancer_arns                 = (known after apply)
+      [32m+[0m[0m load_balancing_algorithm_type      = (known after apply)
+      [32m+[0m[0m load_balancing_anomaly_mitigation  = (known after apply)
+      [32m+[0m[0m load_balancing_cross_zone_enabled  = (known after apply)
+      [32m+[0m[0m name                               = "egress-gwlb-tg"
+      [32m+[0m[0m name_prefix                        = (known after apply)
+      [32m+[0m[0m port                               = 6081
+      [32m+[0m[0m preserve_client_ip                 = (known after apply)
+      [32m+[0m[0m protocol                           = "GENEVE"
+      [32m+[0m[0m protocol_version                   = (known after apply)
+      [32m+[0m[0m proxy_protocol_v2                  = false
+      [32m+[0m[0m region                             = "us-east-1"
+      [32m+[0m[0m slow_start                         = 0
+      [32m+[0m[0m tags                               = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-gwlb-tg"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-gwlb-tg"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m target_type                        = "instance"
+      [32m+[0m[0m vpc_id                             = (known after apply)
+
+      [32m+[0m[0m health_check {
+          [32m+[0m[0m enabled             = true
+          [32m+[0m[0m healthy_threshold   = 3
+          [32m+[0m[0m interval            = 30
+          [32m+[0m[0m matcher             = (known after apply)
+          [32m+[0m[0m path                = (known after apply)
+          [32m+[0m[0m port                = "80"
+          [32m+[0m[0m protocol            = "HTTP"
+          [32m+[0m[0m timeout             = (known after apply)
+          [32m+[0m[0m unhealthy_threshold = 3
+        }
+    }
+
+[1m  # module.egress_vpc.aws_nat_gateway.main[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_nat_gateway" "main" {
+      [32m+[0m[0m allocation_id                      = (known after apply)
+      [32m+[0m[0m association_id                     = (known after apply)
+      [32m+[0m[0m auto_provision_zones               = (known after apply)
+      [32m+[0m[0m auto_scaling_ips                   = (known after apply)
+      [32m+[0m[0m availability_mode                  = (known after apply)
+      [32m+[0m[0m connectivity_type                  = "public"
+      [32m+[0m[0m id                                 = (known after apply)
+      [32m+[0m[0m network_interface_id               = (known after apply)
+      [32m+[0m[0m private_ip                         = (known after apply)
+      [32m+[0m[0m public_ip                          = (known after apply)
+      [32m+[0m[0m region                             = "us-east-1"
+      [32m+[0m[0m regional_nat_gateway_address       = (known after apply)
+      [32m+[0m[0m regional_nat_gateway_auto_mode     = (known after apply)
+      [32m+[0m[0m route_table_id                     = (known after apply)
+      [32m+[0m[0m secondary_allocation_ids           = (known after apply)
+      [32m+[0m[0m secondary_private_ip_address_count = (known after apply)
+      [32m+[0m[0m secondary_private_ip_addresses     = (known after apply)
+      [32m+[0m[0m subnet_id                          = (known after apply)
+      [32m+[0m[0m tags                               = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-nat-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-nat-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id                             = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_nat_gateway.main[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_nat_gateway" "main" {
+      [32m+[0m[0m allocation_id                      = (known after apply)
+      [32m+[0m[0m association_id                     = (known after apply)
+      [32m+[0m[0m auto_provision_zones               = (known after apply)
+      [32m+[0m[0m auto_scaling_ips                   = (known after apply)
+      [32m+[0m[0m availability_mode                  = (known after apply)
+      [32m+[0m[0m connectivity_type                  = "public"
+      [32m+[0m[0m id                                 = (known after apply)
+      [32m+[0m[0m network_interface_id               = (known after apply)
+      [32m+[0m[0m private_ip                         = (known after apply)
+      [32m+[0m[0m public_ip                          = (known after apply)
+      [32m+[0m[0m region                             = "us-east-1"
+      [32m+[0m[0m regional_nat_gateway_address       = (known after apply)
+      [32m+[0m[0m regional_nat_gateway_auto_mode     = (known after apply)
+      [32m+[0m[0m route_table_id                     = (known after apply)
+      [32m+[0m[0m secondary_allocation_ids           = (known after apply)
+      [32m+[0m[0m secondary_private_ip_address_count = (known after apply)
+      [32m+[0m[0m secondary_private_ip_addresses     = (known after apply)
+      [32m+[0m[0m subnet_id                          = (known after apply)
+      [32m+[0m[0m tags                               = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-nat-us-east-1b"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-nat-us-east-1b"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id                             = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_networkfirewall_firewall.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_networkfirewall_firewall" "main" {
+      [32m+[0m[0m arn                                 = (known after apply)
+      [32m+[0m[0m availability_zone_change_protection = false
+      [32m+[0m[0m delete_protection                   = false
+      [32m+[0m[0m firewall_policy_arn                 = (known after apply)
+      [32m+[0m[0m firewall_status                     = (known after apply)
+      [32m+[0m[0m id                                  = (known after apply)
+      [32m+[0m[0m name                                = "egress-firewall"
+      [32m+[0m[0m region                              = "us-east-1"
+      [32m+[0m[0m tags                                = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                            = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m transit_gateway_owner_account_id    = (known after apply)
+      [32m+[0m[0m update_token                        = (known after apply)
+      [32m+[0m[0m vpc_id                              = (known after apply)
+
+      [32m+[0m[0m subnet_mapping {
+          [32m+[0m[0m ip_address_type = (known after apply)
+          [32m+[0m[0m subnet_id       = (known after apply)
+        }
+      [32m+[0m[0m subnet_mapping {
+          [32m+[0m[0m ip_address_type = (known after apply)
+          [32m+[0m[0m subnet_id       = (known after apply)
+        }
+    }
+
+[1m  # module.egress_vpc.aws_networkfirewall_firewall_policy.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_networkfirewall_firewall_policy" "main" {
+      [32m+[0m[0m arn          = (known after apply)
+      [32m+[0m[0m id           = (known after apply)
+      [32m+[0m[0m name         = "egress-firewall-policy"
+      [32m+[0m[0m region       = "us-east-1"
+      [32m+[0m[0m tags         = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-policy"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all     = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-policy"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m update_token = (known after apply)
+
+      [32m+[0m[0m firewall_policy {
+          [32m+[0m[0m stateless_default_actions          = [
+              [32m+[0m[0m "aws:forward_to_sfe",
+            ]
+          [32m+[0m[0m stateless_fragment_default_actions = [
+              [32m+[0m[0m "aws:forward_to_sfe",
+            ]
+
+          [32m+[0m[0m stateful_engine_options {
+              [32m+[0m[0m rule_order = "STRICT_ORDER"
+            }
+
+          [32m+[0m[0m stateful_rule_group_reference {
+              [32m+[0m[0m deep_threat_inspection = (known after apply)
+              [32m+[0m[0m resource_arn           = (known after apply)
+            }
+          [32m+[0m[0m stateful_rule_group_reference {
+              [32m+[0m[0m deep_threat_inspection = (known after apply)
+              [32m+[0m[0m resource_arn           = (known after apply)
+            }
+          [32m+[0m[0m stateful_rule_group_reference {
+              [32m+[0m[0m deep_threat_inspection = (known after apply)
+              [32m+[0m[0m resource_arn           = (known after apply)
+            }
+        }
+    }
+
+[1m  # module.egress_vpc.aws_networkfirewall_logging_configuration.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_networkfirewall_logging_configuration" "main" {
+      [32m+[0m[0m enable_monitoring_dashboard = (known after apply)
+      [32m+[0m[0m firewall_arn                = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m region                      = "us-east-1"
+
+      [32m+[0m[0m logging_configuration {
+          [32m+[0m[0m log_destination_config {
+              [32m+[0m[0m log_destination      = {
+                  [32m+[0m[0m "logGroup" = "/aws/networkfirewall/egress-firewall-alert"
+                }
+              [32m+[0m[0m log_destination_type = "CloudWatchLogs"
+              [32m+[0m[0m log_type             = "ALERT"
+            }
+          [32m+[0m[0m log_destination_config {
+              [32m+[0m[0m log_destination      = {
+                  [32m+[0m[0m "logGroup" = "/aws/networkfirewall/egress-firewall-flow"
+                }
+              [32m+[0m[0m log_destination_type = "CloudWatchLogs"
+              [32m+[0m[0m log_type             = "FLOW"
+            }
+        }
+    }
+
+[1m  # module.egress_vpc.aws_networkfirewall_rule_group.domain_allow[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_networkfirewall_rule_group" "domain_allow" {
+      [32m+[0m[0m arn          = (known after apply)
+      [32m+[0m[0m capacity     = 100
+      [32m+[0m[0m id           = (known after apply)
+      [32m+[0m[0m name         = "egress-firewall-domain-allow"
+      [32m+[0m[0m region       = "us-east-1"
+      [32m+[0m[0m tags         = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-domain-allow"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all     = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-domain-allow"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m type         = "STATEFUL"
+      [32m+[0m[0m update_token = (known after apply)
+
+      [32m+[0m[0m rule_group {
+          [32m+[0m[0m rules_source {
+              [32m+[0m[0m rules_source_list {
+                  [32m+[0m[0m generated_rules_type = "ALLOWLIST"
+                  [32m+[0m[0m target_types         = [
+                      [32m+[0m[0m "HTTP_HOST",
+                      [32m+[0m[0m "TLS_SNI",
+                    ]
+                  [32m+[0m[0m targets              = [
+                      [32m+[0m[0m "*.amazon.com",
+                      [32m+[0m[0m "*.amazonaws.com",
+                      [32m+[0m[0m "*.cloudflare.com",
+                      [32m+[0m[0m "*.debian.org",
+                      [32m+[0m[0m "*.docker.com",
+                      [32m+[0m[0m "*.github.com",
+                      [32m+[0m[0m "*.npmjs.org",
+                      [32m+[0m[0m "*.pypi.org",
+                      [32m+[0m[0m "*.redhat.com",
+                      [32m+[0m[0m "*.ubuntu.com",
+                    ]
+                }
+            }
+        }
+    }
+
+[1m  # module.egress_vpc.aws_networkfirewall_rule_group.domain_block[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_networkfirewall_rule_group" "domain_block" {
+      [32m+[0m[0m arn          = (known after apply)
+      [32m+[0m[0m capacity     = 100
+      [32m+[0m[0m id           = (known after apply)
+      [32m+[0m[0m name         = "egress-firewall-domain-block"
+      [32m+[0m[0m region       = "us-east-1"
+      [32m+[0m[0m tags         = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-domain-block"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all     = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-domain-block"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m type         = "STATEFUL"
+      [32m+[0m[0m update_token = (known after apply)
+
+      [32m+[0m[0m rule_group {
+          [32m+[0m[0m rules_source {
+              [32m+[0m[0m rules_source_list {
+                  [32m+[0m[0m generated_rules_type = "DENYLIST"
+                  [32m+[0m[0m target_types         = [
+                      [32m+[0m[0m "HTTP_HOST",
+                      [32m+[0m[0m "TLS_SNI",
+                    ]
+                  [32m+[0m[0m targets              = [
+                      [32m+[0m[0m "*.badsite.org",
+                      [32m+[0m[0m "*.malicious.com",
+                      [32m+[0m[0m "cryptomining.xyz",
+                      [32m+[0m[0m "malware.com",
+                      [32m+[0m[0m "phishing.net",
+                    ]
+                }
+            }
+        }
+    }
+
+[1m  # module.egress_vpc.aws_networkfirewall_rule_group.ip_block[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_networkfirewall_rule_group" "ip_block" {
+      [32m+[0m[0m arn          = (known after apply)
+      [32m+[0m[0m capacity     = 100
+      [32m+[0m[0m id           = (known after apply)
+      [32m+[0m[0m name         = "egress-firewall-ip-block"
+      [32m+[0m[0m region       = "us-east-1"
+      [32m+[0m[0m tags         = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-ip-block"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all     = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-firewall-ip-block"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m type         = "STATEFUL"
+      [32m+[0m[0m update_token = (known after apply)
+
+      [32m+[0m[0m rule_group {
+          [32m+[0m[0m rules_source {
+              [32m+[0m[0m stateful_rule {
+                  [32m+[0m[0m action = "DROP"
+
+                  [32m+[0m[0m header {
+                      [32m+[0m[0m destination      = "ANY"
+                      [32m+[0m[0m destination_port = "ANY"
+                      [32m+[0m[0m direction        = "ANY"
+                      [32m+[0m[0m protocol         = "IP"
+                      [32m+[0m[0m source           = "192.0.2.0/24,198.51.100.0/24,203.0.113.0/24"
+                      [32m+[0m[0m source_port      = "ANY"
+                    }
+
+                  [32m+[0m[0m rule_option {
+                      [32m+[0m[0m keyword  = "sid:1"
+                      [32m+[0m[0m settings = []
+                    }
+                }
+            }
+        }
+    }
+
+[1m  # module.egress_vpc.aws_route.firewall_to_nat[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route" "firewall_to_nat" {
+      [32m+[0m[0m destination_cidr_block = "0.0.0.0/0"
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m instance_id            = (known after apply)
+      [32m+[0m[0m instance_owner_id      = (known after apply)
+      [32m+[0m[0m nat_gateway_id         = (known after apply)
+      [32m+[0m[0m network_interface_id   = (known after apply)
+      [32m+[0m[0m origin                 = (known after apply)
+      [32m+[0m[0m region                 = "us-east-1"
+      [32m+[0m[0m route_table_id         = (known after apply)
+      [32m+[0m[0m state                  = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route.public_to_igw[0m will be created
+[0m  [32m+[0m[0m resource "aws_route" "public_to_igw" {
+      [32m+[0m[0m destination_cidr_block = "0.0.0.0/0"
+      [32m+[0m[0m gateway_id             = (known after apply)
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m instance_id            = (known after apply)
+      [32m+[0m[0m instance_owner_id      = (known after apply)
+      [32m+[0m[0m network_interface_id   = (known after apply)
+      [32m+[0m[0m origin                 = (known after apply)
+      [32m+[0m[0m region                 = "us-east-1"
+      [32m+[0m[0m route_table_id         = (known after apply)
+      [32m+[0m[0m state                  = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route.tgw_to_gwlb[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route" "tgw_to_gwlb" {
+      [32m+[0m[0m destination_cidr_block = "0.0.0.0/0"
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m instance_id            = (known after apply)
+      [32m+[0m[0m instance_owner_id      = (known after apply)
+      [32m+[0m[0m network_interface_id   = (known after apply)
+      [32m+[0m[0m origin                 = (known after apply)
+      [32m+[0m[0m region                 = "us-east-1"
+      [32m+[0m[0m route_table_id         = (known after apply)
+      [32m+[0m[0m state                  = (known after apply)
+      [32m+[0m[0m vpc_endpoint_id        = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route.tgw_to_gwlb[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route" "tgw_to_gwlb" {
+      [32m+[0m[0m destination_cidr_block = "0.0.0.0/0"
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m instance_id            = (known after apply)
+      [32m+[0m[0m instance_owner_id      = (known after apply)
+      [32m+[0m[0m network_interface_id   = (known after apply)
+      [32m+[0m[0m origin                 = (known after apply)
+      [32m+[0m[0m region                 = "us-east-1"
+      [32m+[0m[0m route_table_id         = (known after apply)
+      [32m+[0m[0m state                  = (known after apply)
+      [32m+[0m[0m vpc_endpoint_id        = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route_table.firewall[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "firewall" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m region           = "us-east-1"
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-firewall-rt"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-firewall-rt"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route_table.public[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "public" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m region           = "us-east-1"
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-public-rt"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-public-rt"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route_table.tgw[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "tgw" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m region           = "us-east-1"
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-tgw-rt"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-tgw-rt"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route_table_association.firewall[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "firewall" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m region         = "us-east-1"
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route_table_association.firewall[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "firewall" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m region         = "us-east-1"
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route_table_association.public[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m region         = "us-east-1"
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route_table_association.public[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m region         = "us-east-1"
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_route_table_association.tgw[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "tgw" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m region         = "us-east-1"
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_subnet.firewall[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "firewall" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.5.10.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m region                                         = "us-east-1"
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-firewall-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Type"        = "firewall"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-firewall-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Type"        = "firewall"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_subnet.firewall[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "firewall" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.5.11.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m region                                         = "us-east-1"
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-firewall-us-east-1b"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Type"        = "firewall"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-firewall-us-east-1b"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Type"        = "firewall"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_subnet.public[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.5.0.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m region                                         = "us-east-1"
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-public-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Type"        = "public"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-public-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Type"        = "public"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_subnet.public[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.5.1.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m region                                         = "us-east-1"
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-public-us-east-1b"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Type"        = "public"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-public-us-east-1b"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Type"        = "public"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_subnet.tgw[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "tgw" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.5.255.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m region                                         = "us-east-1"
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-tgw-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Type"        = "tgw"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc-tgw-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Type"        = "tgw"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_vpc.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc" "main" {
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m cidr_block                           = "10.5.0.0/16"
+      [32m+[0m[0m default_network_acl_id               = (known after apply)
+      [32m+[0m[0m default_route_table_id               = (known after apply)
+      [32m+[0m[0m default_security_group_id            = (known after apply)
+      [32m+[0m[0m dhcp_options_id                      = (known after apply)
+      [32m+[0m[0m enable_dns_hostnames                 = true
+      [32m+[0m[0m enable_dns_support                   = true
+      [32m+[0m[0m enable_network_address_usage_metrics = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_tenancy                     = "default"
+      [32m+[0m[0m ipv6_association_id                  = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block                      = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_network_border_group = (known after apply)
+      [32m+[0m[0m main_route_table_id                  = (known after apply)
+      [32m+[0m[0m owner_id                             = (known after apply)
+      [32m+[0m[0m region                               = "us-east-1"
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-egress-vpc"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # module.egress_vpc.aws_vpc_endpoint.gwlb[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc_endpoint" "gwlb" {
+      [32m+[0m[0m arn                   = (known after apply)
+      [32m+[0m[0m cidr_blocks           = (known after apply)
+      [32m+[0m[0m dns_entry             = (known after apply)
+      [32m+[0m[0m id                    = (known after apply)
+      [32m+[0m[0m ip_address_type       = (known after apply)
+      [32m+[0m[0m network_interface_ids = (known after apply)
+      [32m+[0m[0m owner_id              = (known after apply)
+      [32m+[0m[0m policy                = (known after apply)
+      [32m+[0m[0m prefix_list_id        = (known after apply)
+      [32m+[0m[0m private_dns_enabled   = (known after apply)
+      [32m+[0m[0m region                = "us-east-1"
+      [32m+[0m[0m requester_managed     = (known after apply)
+      [32m+[0m[0m route_table_ids       = (known after apply)
+      [32m+[0m[0m security_group_ids    = (known after apply)
+      [32m+[0m[0m service_name          = (known after apply)
+      [32m+[0m[0m service_region        = (known after apply)
+      [32m+[0m[0m state                 = (known after apply)
+      [32m+[0m[0m subnet_ids            = (known after apply)
+      [32m+[0m[0m tags                  = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-gwlb-endpoint-1"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all              = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-gwlb-endpoint-1"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_endpoint_type     = "GatewayLoadBalancer"
+      [32m+[0m[0m vpc_id                = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_vpc_endpoint.gwlb[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc_endpoint" "gwlb" {
+      [32m+[0m[0m arn                   = (known after apply)
+      [32m+[0m[0m cidr_blocks           = (known after apply)
+      [32m+[0m[0m dns_entry             = (known after apply)
+      [32m+[0m[0m id                    = (known after apply)
+      [32m+[0m[0m ip_address_type       = (known after apply)
+      [32m+[0m[0m network_interface_ids = (known after apply)
+      [32m+[0m[0m owner_id              = (known after apply)
+      [32m+[0m[0m policy                = (known after apply)
+      [32m+[0m[0m prefix_list_id        = (known after apply)
+      [32m+[0m[0m private_dns_enabled   = (known after apply)
+      [32m+[0m[0m region                = "us-east-1"
+      [32m+[0m[0m requester_managed     = (known after apply)
+      [32m+[0m[0m route_table_ids       = (known after apply)
+      [32m+[0m[0m security_group_ids    = (known after apply)
+      [32m+[0m[0m service_name          = (known after apply)
+      [32m+[0m[0m service_region        = (known after apply)
+      [32m+[0m[0m state                 = (known after apply)
+      [32m+[0m[0m subnet_ids            = (known after apply)
+      [32m+[0m[0m tags                  = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-gwlb-endpoint-2"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all              = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-gwlb-endpoint-2"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_endpoint_type     = "GatewayLoadBalancer"
+      [32m+[0m[0m vpc_id                = (known after apply)
+    }
+
+[1m  # module.egress_vpc.aws_vpc_endpoint_service.gwlb[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc_endpoint_service" "gwlb" {
+      [32m+[0m[0m acceptance_required            = false
+      [32m+[0m[0m allowed_principals             = (known after apply)
+      [32m+[0m[0m arn                            = (known after apply)
+      [32m+[0m[0m availability_zones             = (known after apply)
+      [32m+[0m[0m base_endpoint_dns_names        = (known after apply)
+      [32m+[0m[0m gateway_load_balancer_arns     = (known after apply)
+      [32m+[0m[0m id                             = (known after apply)
+      [32m+[0m[0m manages_vpc_endpoints          = (known after apply)
+      [32m+[0m[0m private_dns_name               = (known after apply)
+      [32m+[0m[0m private_dns_name_configuration = (known after apply)
+      [32m+[0m[0m region                         = "us-east-1"
+      [32m+[0m[0m service_name                   = (known after apply)
+      [32m+[0m[0m service_type                   = (known after apply)
+      [32m+[0m[0m state                          = (known after apply)
+      [32m+[0m[0m supported_ip_address_types     = (known after apply)
+      [32m+[0m[0m supported_regions              = (known after apply)
+      [32m+[0m[0m tags                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-gwlb-endpoint-service"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                       = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "egress-gwlb-endpoint-service"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # module.production_vpc.aws_cloudwatch_log_group.flow_logs[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_cloudwatch_log_group" "flow_logs" {
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m deletion_protection_enabled = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m log_group_class             = (known after apply)
+      [32m+[0m[0m name                        = "/aws/vpc/flow-logs/cwan-prod-vpc"
+      [32m+[0m[0m name_prefix                 = (known after apply)
+      [32m+[0m[0m region                      = "us-east-1"
+      [32m+[0m[0m retention_in_days           = 30
+      [32m+[0m[0m skip_destroy                = false
+      [32m+[0m[0m tags                        = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-flow-logs"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                    = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-flow-logs"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+    }
+
+[1m  # module.production_vpc.aws_default_network_acl.default[0m will be created
+[0m  [32m+[0m[0m resource "aws_default_network_acl" "default" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m default_network_acl_id = (known after apply)
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m region                 = "us-east-1"
+      [32m+[0m[0m tags                   = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-default-nacl"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all               = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-default-nacl"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id                 = (known after apply)
+
+      [32m+[0m[0m egress {
+          [32m+[0m[0m action     = "allow"
+          [32m+[0m[0m cidr_block = "0.0.0.0/0"
+          [32m+[0m[0m from_port  = 0
+          [32m+[0m[0m protocol   = "-1"
+          [32m+[0m[0m rule_no    = 100
+          [32m+[0m[0m to_port    = 0
+        }
+
+      [32m+[0m[0m ingress {
+          [32m+[0m[0m action     = "allow"
+          [32m+[0m[0m cidr_block = "0.0.0.0/0"
+          [32m+[0m[0m from_port  = 0
+          [32m+[0m[0m protocol   = "-1"
+          [32m+[0m[0m rule_no    = 100
+          [32m+[0m[0m to_port    = 0
+        }
+    }
+
+[1m  # module.production_vpc.aws_default_security_group.default[0m will be created
+[0m  [32m+[0m[0m resource "aws_default_security_group" "default" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m description            = (known after apply)
+      [32m+[0m[0m egress                 = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m description      = ""
+              [32m+[0m[0m from_port        = 0
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "-1"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 0
+            },
+        ]
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ingress                = (known after apply)
+      [32m+[0m[0m name                   = (known after apply)
+      [32m+[0m[0m name_prefix            = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m region                 = "us-east-1"
+      [32m+[0m[0m revoke_rules_on_delete = false
+      [32m+[0m[0m tags                   = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-default-sg"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all               = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-default-sg"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id                 = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_flow_log.main[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_flow_log" "main" {
+      [32m+[0m[0m arn                      = (known after apply)
+      [32m+[0m[0m iam_role_arn             = (known after apply)
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m log_destination          = (known after apply)
+      [32m+[0m[0m log_destination_type     = "cloud-watch-logs"
+      [32m+[0m[0m log_format               = (known after apply)
+      [32m+[0m[0m max_aggregation_interval = 600
+      [32m+[0m[0m region                   = "us-east-1"
+      [32m+[0m[0m tags                     = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-flow-log"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all                 = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-flow-log"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m traffic_type             = "ALL"
+      [32m+[0m[0m vpc_id                   = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_iam_role.flow_logs[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role" "flow_logs" {
+      [32m+[0m[0m arn                   = (known after apply)
+      [32m+[0m[0m assume_role_policy    = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action    = "sts:AssumeRole"
+                      [32m+[0m[0m Effect    = "Allow"
+                      [32m+[0m[0m Principal = {
+                          [32m+[0m[0m Service = "vpc-flow-logs.amazonaws.com"
+                        }
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m create_date           = (known after apply)
+      [32m+[0m[0m force_detach_policies = false
+      [32m+[0m[0m id                    = (known after apply)
+      [32m+[0m[0m managed_policy_arns   = (known after apply)
+      [32m+[0m[0m max_session_duration  = 3600
+      [32m+[0m[0m name                  = "cwan-prod-vpc-flow-logs-role"
+      [32m+[0m[0m name_prefix           = (known after apply)
+      [32m+[0m[0m path                  = "/"
+      [32m+[0m[0m tags                  = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all              = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m unique_id             = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_iam_role_policy.flow_logs[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role_policy" "flow_logs" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m name        = "cwan-prod-vpc-flow-logs-policy"
+      [32m+[0m[0m name_prefix = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action   = [
+                          [32m+[0m[0m "logs:CreateLogGroup",
+                          [32m+[0m[0m "logs:CreateLogStream",
+                          [32m+[0m[0m "logs:PutLogEvents",
+                          [32m+[0m[0m "logs:DescribeLogGroups",
+                          [32m+[0m[0m "logs:DescribeLogStreams",
+                        ]
+                      [32m+[0m[0m Effect   = "Allow"
+                      [32m+[0m[0m Resource = "*"
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m role        = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_route_table.private[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "private" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m region           = "us-east-1"
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-private-rt"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-private-rt"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_route_table.tgw[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "tgw" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m region           = "us-east-1"
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-tgw-rt"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-tgw-rt"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_route_table_association.private[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "private" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m region         = "us-east-1"
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_route_table_association.private[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "private" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m region         = "us-east-1"
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_route_table_association.tgw[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "tgw" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m region         = "us-east-1"
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_subnet.private[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "private" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.1.0.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m region                                         = "us-east-1"
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-private-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Type"        = "private"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-private-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Type"        = "private"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_subnet.private[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "private" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.1.1.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m region                                         = "us-east-1"
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-private-us-east-1b"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Type"        = "private"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-private-us-east-1b"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Type"        = "private"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_subnet.tgw[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "tgw" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "us-east-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.1.255.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = false
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m region                                         = "us-east-1"
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-tgw-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Type"        = "tgw"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc-tgw-us-east-1a"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Type"        = "tgw"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # module.production_vpc.aws_vpc.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc" "main" {
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m cidr_block                           = "10.1.0.0/16"
+      [32m+[0m[0m default_network_acl_id               = (known after apply)
+      [32m+[0m[0m default_route_table_id               = (known after apply)
+      [32m+[0m[0m default_security_group_id            = (known after apply)
+      [32m+[0m[0m dhcp_options_id                      = (known after apply)
+      [32m+[0m[0m enable_dns_hostnames                 = true
+      [32m+[0m[0m enable_dns_support                   = true
+      [32m+[0m[0m enable_network_address_usage_metrics = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_tenancy                     = "default"
+      [32m+[0m[0m ipv6_association_id                  = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block                      = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_network_border_group = (known after apply)
+      [32m+[0m[0m main_route_table_id                  = (known after apply)
+      [32m+[0m[0m owner_id                             = (known after apply)
+      [32m+[0m[0m region                               = "us-east-1"
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Segment"     = "production"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Backup"      = "Daily"
+          [32m+[0m[0m "Compliance"  = "SOC2"
+          [32m+[0m[0m "CostCenter"  = "NetworkOps"
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "Terraform"
+          [32m+[0m[0m "Name"        = "cwan-prod-vpc"
+          [32m+[0m[0m "Owner"       = "CloudTeam"
+          [32m+[0m[0m "Project"     = "cloud-wan-segmentation"
+          [32m+[0m[0m "Repository"  = "aws-cloud-wan-terraform"
+          [32m+[0m[0m "Segment"     = "production"
+        }
+    }
+
+[1mPlan:[0m 74 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m cloud_wan_core_network_arn      = (known after apply)
+  [32m+[0m[0m cloud_wan_core_network_id       = (known after apply)
+  [32m+[0m[0m cloud_wan_global_network_arn    = (known after apply)
+  [32m+[0m[0m cloud_wan_global_network_id     = (known after apply)
+  [32m+[0m[0m deployment_summary              = {
+      [32m+[0m[0m availability_zones    = [
+          [32m+[0m[0m "us-east-1a",
+          [32m+[0m[0m "us-east-1b",
+        ]
+      [32m+[0m[0m cloud_wan_enabled     = true
+      [32m+[0m[0m multi_az_enabled      = true
+      [32m+[0m[0m nat_gateway_count     = 2
+      [32m+[0m[0m network_firewall_name = "egress-firewall"
+      [32m+[0m[0m region                = "us-east-1"
+      [32m+[0m[0m transit_gateway_id    = (known after apply)
+      [32m+[0m[0m vpc_count             = 4
+    }
+  [32m+[0m[0m egress_vpc_cidr                 = "10.5.0.0/16"
+  [32m+[0m[0m egress_vpc_id                   = (known after apply)
+  [32m+[0m[0m firewall_log_groups             = {
+      [32m+[0m[0m alert = "/aws/networkfirewall/egress-firewall-alert"
+      [32m+[0m[0m flow  = "/aws/networkfirewall/egress-firewall-flow"
+    }
+  [32m+[0m[0m gateway_load_balancer_arn       = (known after apply)
+  [32m+[0m[0m gateway_load_balancer_id        = (known after apply)
+  [32m+[0m[0m gwlb_endpoint_ids               = [
+      [32m+[0m[0m (known after apply),
+      [32m+[0m[0m (known after apply),
+    ]
+  [32m+[0m[0m important_notes                 = <<-EOT
+        IMPORTANT NOTES:
+            
+        1. CROSS-ACCOUNT ACCESS:
+           - Ensure IAM roles exist in each account: TerraformExecutionRole
+           - Verify RAM resource sharing is accepted in spoke accounts
+           - Check TGW attachments are accepted (if require_attachment_acceptance = true)
+            
+        2. NETWORK CONNECTIVITY:
+           - Production VPC: 10.1.0.0/16
+           - Non-Production VPC: 10.2.0.0/16
+           - Shared Services VPC: 10.3.0.0/16
+           - Egress VPC: 10.5.0.0/16
+            
+        3. FIREWALL RULES:
+           - Blocked domains: 5 configured
+           - Allowed domains: 10 configured
+           - Blocked IPs: 3 configured
+           - Review and update rules in terraform.tfvars as needed
+            
+        4. COST OPTIMIZATION:
+           - NAT Gateways: 2 (multi-AZ)
+           - Consider using single NAT Gateway for non-production environments
+           - Review Network Firewall capacity settings
+            
+        5. MONITORING:
+           - VPC Flow Logs retention: 30 days
+           - Firewall logs retention: 90 days
+           - Set up CloudWatch alarms for critical metrics
+            
+        6. SECURITY:
+           - No direct Internet Gateways on spoke VPCs (enforced)
+           - All internet traffic flows through centralized egress
+           - Network Firewall provides stateful inspection
+           - Review security groups and NACLs as needed
+    EOT
+  [32m+[0m[0m nat_gateway_ids                 = [
+      [32m+[0m[0m (known after apply),
+      [32m+[0m[0m (known after apply),
+    ]
+  [32m+[0m[0m nat_gateway_public_ips          = [
+      [32m+[0m[0m (known after apply),
+      [32m+[0m[0m (known after apply),
+    ]
+  [32m+[0m[0m network_firewall_arn            = (known after apply)
+  [32m+[0m[0m network_firewall_endpoint_ids   = (known after apply)
+  [32m+[0m[0m network_firewall_id             = (known after apply)
+  [32m+[0m[0m network_firewall_status         = (known after apply)
+  [32m+[0m[0m next_steps                      = <<-EOT
+        1. Verify Transit Gateway attachments are in 'available' state
+        2. Test connectivity between Production VPC and Shared Services VPC
+        3. Verify Production and Non-Production VPCs cannot communicate
+        4. Test internet access from spoke VPCs (should route through Egress VPC)
+        5. Check Network Firewall logs in CloudWatch for blocked/allowed traffic
+        6. Review VPC Flow Logs for traffic patterns
+        7. Deploy test EC2 instances in each VPC for validation
+        8. Configure additional firewall rules as needed
+        9. Set up CloudWatch alarms for monitoring
+        10. Document any custom configurations
+    EOT
+  [32m+[0m[0m production_vpc_cidr             = "10.1.0.0/16"
+  [32m+[0m[0m production_vpc_id               = (known after apply)
+  [32m+[0m[0m ram_resource_share_arn          = (known after apply)
+  [32m+[0m[0m ram_resource_share_id           = (known after apply)
+  [32m+[0m[0m transit_gateway_arn             = (known after apply)
+  [32m+[0m[0m transit_gateway_id              = (known after apply)
+  [32m+[0m[0m transit_gateway_route_table_ids = {
+      [32m+[0m[0m egress         = (known after apply)
+      [32m+[0m[0m non_production = (known after apply)
+      [32m+[0m[0m production     = (known after apply)
+      [32m+[0m[0m shared         = (known after apply)
+    }
+  [32m+[0m[0m validation_checks               = {
+      [32m+[0m[0m centralized_egress         = "All spoke VPCs route 0.0.0.0/0 to Egress VPC via Transit Gateway"
+      [32m+[0m[0m firewall_deployed          = "Network Firewall deployed in Egress VPC with domain and IP filtering"
+      [32m+[0m[0m gwlb_pattern_implemented   = "Gateway Load Balancer deployed for transparent firewall insertion"
+      [32m+[0m[0m no_direct_igw_on_spokes    = "Production, Non-Production, and Shared Services VPCs have no Internet Gateways"
+      [32m+[0m[0m prod_nonprod_isolated      = "Production and Non-Production VPCs use separate TGW route tables with no cross-segment routes"
+      [32m+[0m[0m shared_services_accessible = "Shared Services VPC has routes configured in both Production and Non-Production TGW route tables"
+    }
