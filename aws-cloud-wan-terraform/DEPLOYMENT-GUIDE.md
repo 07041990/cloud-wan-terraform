@@ -17,9 +17,9 @@ This Terraform codebase deploys a production-ready AWS Cloud WAN + Transit Gatew
 ✅ **main.tf** - Core infrastructure (Cloud WAN, TGW, VPCs, routing)  
 ✅ **outputs.tf** - Comprehensive outputs and validation checks  
 
-### Modules (Need to be Created)
+### Modules 
 
-The following modules are referenced in main.tf and need to be created:
+The following modules are referenced in main.tf 
 
 #### 1. `modules/vpc/` - Standard VPC Module
 Creates spoke VPCs (Production, Non-Production, Shared Services) with:
